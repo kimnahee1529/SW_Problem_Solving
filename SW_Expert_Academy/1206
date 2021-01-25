@@ -1,0 +1,50 @@
+//https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV134DPqAA8CFAYh
+#include<iostream>
+#include <vector>
+ 
+using namespace std;
+ 
+int main(int argc, char** argv)
+{
+    int t;
+    int T=10;
+    int sum=0;
+    int len;
+    int a;
+    int lm,rm;
+     
+    vector<int> v;
+    for(t = 1; t <= T; t++){
+        cin>>len;
+        for(int i=0; i<len; i++){
+            cin>>a;
+            v.push_back(a);
+         }
+        for(int i=0; i<len; i++){
+            if(v.at(i)!=0){
+                if(v.at(i-1)<v.at(i) && v.at(i-2)<v.at(i) && v.at(i+1)<v.at(i) && v.at(i+2)<v.at(i)){
+                    if(v.at(i-1)<=v.at(i-2))
+                        lm=v.at(i-2);
+                    else
+                        lm=v.at(i-1);
+                    //cout<<"lm:"<<i<<" "<<lm<<endl;
+                    if(v.at(i+1)<=v.at(i+2))
+                        rm=v.at(i+2);
+                    else
+                        rm=v.at(i+1);
+                    //cout<<"rm:"<<i<<" "<<rm<<endl;
+///여기까지 max 찾기
+                    if(rm>lm)
+                        sum+=v.at(i)-rm;
+                else
+                    sum+=v.at(i)-lm;
+                //cout<<"sum:"<<i<<" "<<sum<<endl;
+            }
+         }//max 찾기 
+        }
+        v.clear();
+        cout<<"#"<<t<<" "<<sum<<endl;
+        sum=0;
+    }
+    return 0;//정상종료시 반드시 0을 리턴해야합니다.
+}
