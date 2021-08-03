@@ -3,21 +3,20 @@
 using namespace std;
 
 int main() {
-	string N; 
+	string N; //int가 아니고 string으로 입력받기
 	string n;
 	int F;
 	int share;
 	cin >> N;
 	cin >> F;
-	N[N.size() - 2] = '0';
+	N[N.size() - 2] = '0';//마지막 두자리를 0으로 바꿈
 	N[N.size() - 1] = '0';
-	share = stoi(N) / F;
-	if (stoi(N) % F == 0) {
+	share = stoi(N) / F; //몫
+	if (stoi(N) % F == 0) { //00으로 바꿔서 딱 떨어지면 그대로 출력
 		cout << N[N.size() - 2] << N[N.size() - 1] << endl;
 	}
-	else {
-		n = to_string(share * F + F);
+	else {//00으로 바꿔서 딱 떨어지지 않으면 
+		n = to_string(share * F + F);//몫*F+F을 문자열로 바꿈
 		cout << n[n.size() - 2] << n[n.size() - 1] << endl;
 	}
 }
-//https://www.acmicpc.net/problem/1075
