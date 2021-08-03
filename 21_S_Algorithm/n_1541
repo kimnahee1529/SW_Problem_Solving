@@ -1,0 +1,100 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main() {
+	string str;
+	string firstNumber;
+	string secondNumber;
+	int size = 0;
+	int number = 0;
+	vector <int> fs;
+	queue<int> s;
+	queue<int> S;
+	getline(cin, str, '\n');
+	fs.push_back(-1);
+	for (int i = 0; i < str.length(); i++) {
+		if (str[i] == '-') {
+			fs.push_back(i);
+		}
+	}
+	fs.push_back(str.length());
+	for (int i = 0; i < fs.size() - 1; i++) {// -개수만큼 반복(2를 fs.size()로 바꿈)
+		for (int j = fs[i] + 1; j < fs[i + 1]; j++) {
+			cout << fs[i] + 1 << "~" << fs[i + 1] << endl;
+			if (str[j] == '+') { // (1)
+				if (s.size() == 0) {// (2)
+					cout << "[2]-if j:" << j << endl;
+					s.push(stoi(firstNumber));
+					cout << "sssss.back:" << s.back() << endl;
+					firstNumber = "";
+					cout << "[2]-if s:" << s.front() << endl;
+				}
+				else {// (3)
+					cout << "Why aren't you coming in here?" << endl;
+					cout << "maybe 40 firstNumber" << firstNumber << endl;
+					cout << "maybe 50 s.front()" << s.front() << endl;
+					cout << "[3]-else if j:" << j << endl;
+					s.push(stoi(firstNumber) + s.front());
+					cout << "sssss.back:" << s.back() << endl;
+					s.pop();
+					firstNumber = "";
+				}
+			}
+			else {//if (47 < str[j] && str[j] < 58) {//수가 나왔을 때 fn에 계속 더하기 (4)
+				cout << "[2]-last j:" << j << endl;
+				firstNumber += str[j];
+				cout << firstNumber << endl;
+				cout << "str[j+1]:" << str[j + 1] << endl;
+				if (str[j + 1] == '\0' || str[j + 1] == '-') { //(5)
+					if (s.size() == 0) { //(6)
+						cout << "6I'm here!!!" << endl;
+						s.push(stoi(firstNumber));
+						cout << "sssss.back:" << s.back() << endl;
+						cout << "[6]if s:" << s.front() << endl;
+					}
+					else { //(7)
+						cout << "7I'm here too!" << endl;
+						s.push(stoi(firstNumber) + s.front());
+						s.pop();
+					}
+					cout << "sssss.back:" << s.back() << endl;
+				}
+			}
+			//-가 나오면 끝나니까 수가 들어있는 그대로 끝나면 안돼서 큐에 집어넣는 실행문	
+		}
+		if (S.size() == 0) {
+			S.push(s.front());
+			s.pop();
+			cout << "[if]fisrtNumber:" << firstNumber << endl;
+			cout << "[if]S.front():" << S.front() << endl;
+			cout << "[if]S.back():" << S.back() << endl;
+		}
+		else {
+			cout << "[else]fisrtNumber:" << firstNumber << endl;
+			cout << "s.front:" << s.front() << endl;
+			S.push(s.front());
+			s.pop();
+			cout << "[else]S.front():" << S.front() << endl;
+		}
+		firstNumber = "";
+		cout << "S.front():" << S.front() << endl;
+		cout << "S.back():" << S.back() << endl;
+		cout << "iiiiiiiii:" << i << "  fs.size:" << fs.size() << endl;
+	}
+	size = S.size() - 1;
+	number = S.front();
+	S.pop();
+	for (int n = 0; n < size; n++) {
+		cout << "n:" << n << " size:" << size << endl;
+		cout << "S.front:" << S.front() << endl;
+		number -= S.front();
+		if (S.size() - 1 != 0)
+			S.pop();
+		cout << "number:" << number << endl;
+	}
+	cout << "number:" << number;
+}
+//https://www.acmicpc.net/problem/1541
